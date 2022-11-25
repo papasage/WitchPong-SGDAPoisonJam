@@ -31,6 +31,10 @@ public class Ball : MonoBehaviour
     public Gradient colorCurveDownGradient;
     public Gradient colorFastGradient;
     public Gradient colorScrewGradient;
+    [Header("Intro Text")]
+    public GameObject readyText;
+    public GameObject brewText;
+
 
     //public Gradient colorRightGradient;
     //public Gradient colorLeftGradient;
@@ -45,13 +49,16 @@ public class Ball : MonoBehaviour
         ballShellSprite.color = colorDefault;
         ballSprite.color = Color.white;
         pp = FindObjectOfType<PoisonPicker>();
+
+        readyText.SetActive(false);
+        brewText.SetActive(false);
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
-        Launch();
+        StartCoroutine("FirstServeBall");
     }
 
     private void Update()
@@ -89,7 +96,7 @@ public class Ball : MonoBehaviour
         isRightBall = false;
 
         DefaultBall();
-        Launch();
+        StartCoroutine("ServeBall");
     }
 
     private void Launch()
@@ -263,5 +270,26 @@ public class Ball : MonoBehaviour
         vo.FastPicker();
 
         //BALL EFFECT IS CALCULATED AT THE METHOD'S FIREPOINT. See Left/RightPoisonEffect
+    }
+
+    public IEnumerator FirstServeBall()
+    {
+        yield return new WaitForSeconds(.2f);
+        vo.playVOpretties();
+        readyText.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        readyText.SetActive(false);
+        brewText.SetActive(true);
+        sfx.playSFXPaddleHit();
+        Launch();
+        yield return new WaitForSeconds(1f);
+        brewText.SetActive(false);
+    }
+
+    public IEnumerator ServeBall()
+    {
+        yield return new WaitForSeconds(1f);
+        sfx.playSFXPaddleHit();
+        Launch();
     }
 }

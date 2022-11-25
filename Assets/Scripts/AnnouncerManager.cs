@@ -105,6 +105,12 @@ public class AnnouncerManager : MonoBehaviour
         source.pitch = 1f;
         source.Play();
     }
+      public void playVOpretties()
+    {
+        source.clip = myPretties;
+        source.pitch = 1f;
+        source.Play();
+    }
 
     public void LaughPicker()
     {

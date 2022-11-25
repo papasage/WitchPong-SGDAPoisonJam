@@ -94,6 +94,11 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
 
     IEnumerator PlayerVictory(bool LeftWinner)
@@ -125,5 +130,11 @@ public class GameManager : MonoBehaviour
             restartReady = true;
 
         }
+    }
+
+    public IEnumerator ServeBall()
+    {
+        vo.playVOpretties();
+        yield return new WaitForSeconds(2f);
     }
 }
