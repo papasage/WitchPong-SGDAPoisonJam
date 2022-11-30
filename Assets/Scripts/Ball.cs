@@ -104,6 +104,7 @@ public class Ball : MonoBehaviour
         float x = Random.Range(0, 2) == 0 ? -1 : 1;
         float y = Random.Range(0, 2) == 0 ? -1 : 1;
         rb.velocity = new Vector2(speed * x, speed * y);
+        trail.enabled = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

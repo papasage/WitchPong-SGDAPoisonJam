@@ -5,20 +5,29 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     public bool isPlayerLeft;
+    public bool isPlayerRight;
     public float speed;
+    public float cpuSpeed;
 
     private Rigidbody2D rb = null;
     private Vector3 startPosition;
     private float movement;
 
     public PoisonPicker pp;
-
+    public Ball _ball;
+    float ballY;
+    
+    //this is a variable that determines how often the ai checks the ball's y position
+    //consider it a % chance out of 100 per frame
+    public int aiMoveBrain;
+    public int aiPoisonBrain;
 
     private void Start()
     {
         //initialize rigidbody, PoisonPicker, and Paddle Start position
         rb = GetComponent<Rigidbody2D>();
         pp = FindObjectOfType<PoisonPicker>();
+        _ball = FindObjectOfType<Ball>();
 
         //paddle start position is reset per-goal inside of GameManager.cs
         startPosition = transform.position;
@@ -31,17 +40,42 @@ public class Paddle : MonoBehaviour
         if (isPlayerLeft)
         {
             movement = Input.GetAxisRaw("Vertical");
+            rb.velocity = new Vector2(rb.velocity.x, movement * speed);
         }
-        else
+        if (isPlayerRight)
         {
             movement = Input.GetAxisRaw("Vertical2");
+            rb.velocity = new Vector2(rb.velocity.x, movement * speed);
         }
-
-        rb.velocity = new Vector2(rb.velocity.x, movement * speed);
-
 
         //listen for player poison selection
         PickYourPoison();
+
+        // track the ball Y for the AI
+        aiBallTracker();
+        // Poison Selecter for CPU mode
+        aiPoisonPicker();
+    }
+
+
+    //ENEMY AI MOVEMENT HERE
+    private void FixedUpdate()
+    {
+        if (!isPlayerRight && !isPlayerLeft)
+        {
+
+            if (ballY > gameObject.transform.position.y)
+            {
+                movement = 1;
+            }
+
+            if (ballY < gameObject.transform.position.y)
+            {
+                movement = -1;
+            }
+
+            rb.velocity = new Vector2(rb.velocity.x, movement * cpuSpeed);
+        }
     }
 
     public void Reset()
@@ -90,4 +124,30 @@ public class Paddle : MonoBehaviour
         
     }
 
+    void aiBallTracker()
+    {
+
+        int _random1 = Random.Range(1, 100);
+        if (_random1 <= aiMoveBrain)
+        {
+            ballY = _ball.transform.position.y;
+        }
+
+    }
+
+    void aiPoisonPicker()
+    {
+        int _randomPoisonChance = Random.RandomRange(1, 1000);
+        int _randomPicker = Random.RandomRange(1,2);
+
+        if(_randomPoisonChance < aiPoisonBrain)
+        {
+            if (_randomPicker == 1)
+            {
+                pp.PlayerRightCycleRight();
+            }
+            else pp.PlayerRightCycleLeft();
+        }
+
+    }
 }

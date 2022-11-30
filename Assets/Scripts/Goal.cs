@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour
     public bool isPlayerLeftGoal;
     SFXManager sfx;
     public CameraShake cameraShake;
+    public TrailRenderer ballTrail;
 
     [SerializeField] GameObject rightScoreParticles;
     [SerializeField] GameObject leftScoreParticles;
@@ -20,6 +21,7 @@ public class Goal : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
+            ballTrail.enabled = false;
             //play score sound
             sfx.playSFXScore();
             
