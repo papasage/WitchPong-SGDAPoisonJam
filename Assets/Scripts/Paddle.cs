@@ -12,6 +12,7 @@ public class Paddle : MonoBehaviour
     private Rigidbody2D rb = null;
     private Vector3 startPosition;
     private float movement;
+    private float movement2;
 
     public PoisonPicker pp;
     public Ball _ball;
@@ -40,12 +41,14 @@ public class Paddle : MonoBehaviour
         if (isPlayerLeft)
         {
             movement = Input.GetAxisRaw("Vertical");
-            rb.velocity = new Vector2(rb.velocity.x, movement * speed);
+            movement2 = Input.GetAxisRaw("Vertical3");
+            rb.velocity = new Vector2(rb.velocity.x, (movement + movement2) * speed);
         }
         if (isPlayerRight)
         {
             movement = Input.GetAxisRaw("Vertical2");
-            rb.velocity = new Vector2(rb.velocity.x, movement * speed);
+            movement2 = Input.GetAxisRaw("Vertical4");
+            rb.velocity = new Vector2(rb.velocity.x, (movement + movement2) * speed);
         }
 
         //listen for player poison selection
@@ -91,31 +94,32 @@ public class Paddle : MonoBehaviour
         if (isPlayerLeft)
         {
             //Player LEFT cycle LEFT
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) || (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") < 0))
             {
                 Debug.Log("PlayerLeft: Cycled Left");
                 pp.PlayerLeftCycleLeft();
             }
             
             //Player LEFT cycle RIGHT
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D) || (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") > 0))
             {
                 Debug.Log("PlayerLeft: Cycled Right");
                 pp.PlayerLeftCycleRight();
             }
+
         }
 
         else
         {
             //Player RIGHT cycle LEFT
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetButtonDown("Horizontal2") && Input.GetAxisRaw("Horizontal2") < 0))
             {
                 Debug.Log("PlayerRight: Cycled Left");
                 pp.PlayerRightCycleLeft();
             }
 
             //Player RIGHT cycle RIGHT
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetButtonDown("Horizontal2") && Input.GetAxisRaw("Horizontal2") > 0))
             {
                 Debug.Log("PlayerRight: Cycled Right");
                 pp.PlayerRightCycleRight();
