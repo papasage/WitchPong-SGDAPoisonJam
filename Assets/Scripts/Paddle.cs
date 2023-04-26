@@ -36,7 +36,7 @@ public class Paddle : MonoBehaviour
     void Update()
     {
         //calculate player's movement
-
+        /*
         if (isPlayerLeft)
         {
             movement = Input.GetAxisRaw("Vertical");
@@ -47,9 +47,10 @@ public class Paddle : MonoBehaviour
             movement = Input.GetAxisRaw("Vertical2");
             rb.velocity = new Vector2(rb.velocity.x, movement * speed);
         }
+        */
 
         //listen for player poison selection
-        PickYourPoison();
+        //PickYourPoison();
 
         // track the ball Y for the AI
         aiBallTracker();
@@ -88,39 +89,39 @@ public class Paddle : MonoBehaviour
     {
         // left and right will cycle through different chaotic ball styles that will apply to the ball when you hit it. 
         // think like how a baseball pitcher decides what kind of pitch to throw to the batter
-        if (isPlayerLeft)
-        {
+       // if (isPlayerLeft)
+       // {
             //Player LEFT cycle LEFT
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Debug.Log("PlayerLeft: Cycled Left");
-                pp.PlayerLeftCycleLeft();
-            }
+            //if (Input.GetKeyDown(KeyCode.A))
+           // {
+               // Debug.Log("PlayerLeft: Cycled Left");
+               // pp.PlayerLeftCycleLeft();
+           // }
             
             //Player LEFT cycle RIGHT
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                Debug.Log("PlayerLeft: Cycled Right");
-                pp.PlayerLeftCycleRight();
-            }
-        }
+           // if (Input.GetKeyDown(KeyCode.D))
+            //{
+               // Debug.Log("PlayerLeft: Cycled Right");
+               // pp.PlayerLeftCycleRight();
+           // }
+       // }
 
-        else
-        {
+       // else
+       // {
             //Player RIGHT cycle LEFT
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                Debug.Log("PlayerRight: Cycled Left");
-                pp.PlayerRightCycleLeft();
-            }
+            //if (Input.GetKeyDown(KeyCode.LeftArrow))
+            //{
+               // Debug.Log("PlayerRight: Cycled Left");
+               // pp.PlayerRightCycleLeft();
+           // }
 
             //Player RIGHT cycle RIGHT
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                Debug.Log("PlayerRight: Cycled Right");
-                pp.PlayerRightCycleRight();
-            }
-        }
+           // if (Input.GetKeyDown(KeyCode.RightArrow))
+            //{
+               // Debug.Log("PlayerRight: Cycled Right");
+               // pp.PlayerRightCycleRight();
+            //}
+        //}
         
     }
 
@@ -149,5 +150,43 @@ public class Paddle : MonoBehaviour
             else pp.PlayerRightCycleLeft();
         }
 
+    }
+
+    public void PlayerLeftCycleLeft()
+    {
+        if (isPlayerLeft)
+        {
+            Debug.Log("PlayerLeft: Cycled Left");
+            pp.PlayerLeftCycleLeft();
+        }
+        
+    }
+
+    public void PlayerLeftCycleRight()
+    {
+        if (isPlayerLeft)
+        {
+            Debug.Log("PlayerLeft: Cycled Right");
+            pp.PlayerLeftCycleRight();
+        }
+    }
+    
+    public void PlayerRightCycleLeft()
+    {
+        if (isPlayerRight)
+        {
+            Debug.Log("PlayerRight: Cycled Left");
+            pp.PlayerRightCycleLeft();
+        }
+        
+    }
+
+    public void PlayerRightCycleRight()
+    {
+        if (isPlayerLeft)
+        {
+            Debug.Log("PlayerRight: Cycled Right");
+            pp.PlayerRightCycleRight();
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PoisonPicker : MonoBehaviour
 {
@@ -69,14 +70,36 @@ public class PoisonPicker : MonoBehaviour
     {
         PlayerLeftPoisonSelect();
         PlayerRightPoisonSelect();
+
+
+    InputSystem.onDeviceChange +=
+    (device, change) =>
+    {
+        switch (change)
+        {
+            case InputDeviceChange.Added:
+                Debug.Log("New device added: " + device);
+                break;
+
+            case InputDeviceChange.Removed:
+                Debug.Log("Device removed: " + device);
+                break;
+        }
+    };
+
+        foreach (var item in InputSystem.devices)
+        {
+            Debug.Log(item.name);
+        }
+
     }
 
 
 
-    //--------------METHODS---------------
+//--------------METHODS---------------
 
-    //Reset the Left Player's poison after hit
-    public void PlayerLeftDefault()
+//Reset the Left Player's poison after hit
+public void PlayerLeftDefault()
     {
         sfx.playSFXCycleDefault();
         poisonLeft = 3;

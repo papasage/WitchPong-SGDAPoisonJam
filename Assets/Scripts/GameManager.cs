@@ -87,18 +87,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PlayerVictory(false));
         }
 
-        if (restartReady == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
     }
 
     IEnumerator PlayerVictory(bool LeftWinner)
@@ -137,4 +125,18 @@ public class GameManager : MonoBehaviour
         vo.playVOpretties();
         yield return new WaitForSeconds(2f);
     }
+
+    public void RestartRound()
+    {
+        if (restartReady == true)
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+        public void QuitRound()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }
