@@ -783,7 +783,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.78431374, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.78431374, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2048,13 +2048,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerLeft: 0
-  isPlayerRight: 1
+  isPlayerRight: 0
   speed: 10
-  cpuSpeed: 0
+  cpuSpeed: 9
   pp: {fileID: 0}
   _ball: {fileID: 0}
-  aiMoveBrain: 0
-  aiPoisonBrain: 0
+  aiMoveBrain: 3
+  aiPoisonBrain: 3
 --- !u!50 &379609195
 Rigidbody2D:
   serializedVersion: 4
@@ -2161,9 +2161,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379609193}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 7.000004, y: -0.8800019, z: 0}
-  m_LocalScale: {x: 0.80000025, y: 0.80000025, z: 0.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 7, y: -0.88, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 793199616}
@@ -2208,7 +2208,7 @@ MonoBehaviour:
   isPlayerLeft: 1
   isPlayerRight: 0
   speed: 10
-  cpuSpeed: 0
+  cpuSpeed: 7
   pp: {fileID: 0}
   _ball: {fileID: 0}
   aiMoveBrain: 0

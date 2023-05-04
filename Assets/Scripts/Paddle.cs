@@ -77,6 +77,11 @@ public class Paddle : MonoBehaviour
                 movement = -1;
             }
 
+            if (ballY == gameObject.transform.position.y)
+            {
+                movement = 0;
+            }
+
             rb.velocity = new Vector2(rb.velocity.x, movement * cpuSpeed);
         }
     }

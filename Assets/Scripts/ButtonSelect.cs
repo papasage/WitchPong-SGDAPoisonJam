@@ -14,5 +14,14 @@ public class ButtonSelect : MonoBehaviour
         button.Select();
     }
 
+    private void OnEnable()
+    {
+        if (button != null)
+        {
+           button.Select();
+        }
+       
+    }
+
 
 }
