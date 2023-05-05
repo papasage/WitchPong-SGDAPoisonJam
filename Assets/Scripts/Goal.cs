@@ -31,22 +31,22 @@ public class Goal : MonoBehaviour
             //LEFT PLAYER POINT
             if (!isPlayerLeftGoal)
             {
-                Debug.Log("Left Player Scored!");
+                //Debug.Log("Left Player Scored!");
                 GameObject.Find("GameManager").GetComponent<GameManager>().PlayerLeftScored();
 
                 //SCORE PARTICLES
                 Vector3 collisionPoint = collision.ClosestPoint(transform.position);
-                Instantiate(rightScoreParticles, collisionPoint, Quaternion.identity); 
+                Instantiate(rightScoreParticles, collisionPoint, Quaternion.Euler(0,-90,45)); 
             }
             //RIGHT PLAYER POINT
             else
             {
-                Debug.Log("Right Player Scored!");
+                //Debug.Log("Right Player Scored!");
                 GameObject.Find("GameManager").GetComponent<GameManager>().PlayerRightScored();
 
                 //SCORE PARTICLES
                 Vector3 collisionPoint = collision.ClosestPoint(transform.position);
-                Instantiate(leftScoreParticles, collisionPoint, Quaternion.identity);
+                Instantiate(leftScoreParticles, collisionPoint, Quaternion.Euler(0, 90, -45));
             }
         }
     }

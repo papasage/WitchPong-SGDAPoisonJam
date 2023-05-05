@@ -7,10 +7,12 @@ public class SFXManager : MonoBehaviour
     AudioSource source;
 
     public AudioClip sfxPaddleHit;
+
     public AudioClip sfxScore;
     public AudioClip sfxCycleUp;
     public AudioClip sfxCycleDown;
     public AudioClip sfxCycleDefault;
+
 
     void Start()
     {
@@ -57,5 +59,6 @@ public class SFXManager : MonoBehaviour
         source.pitch = 1;
         source.Play();
     }
+
 
 }

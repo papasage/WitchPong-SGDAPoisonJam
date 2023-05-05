@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [Header("Parry Window info")]
+    public float parryWindow;
+    [Header("Ball Stuff")]
     public float speed;
+    private float initialSpeed;
     Rigidbody2D rb;
     public Vector3 startPosition;
     SFXManager sfx;
+    ParrySFX psfx;
     public SpriteRenderer ballSprite;
     public SpriteRenderer ballShellSprite;
     public CameraShake cameraShake;
@@ -43,6 +48,7 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         sfx = FindObjectOfType<SFXManager>();
+        psfx = FindObjectOfType<ParrySFX>();
         vo = FindObjectOfType<AnnouncerManager>();
         ballSprite = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
@@ -52,6 +58,9 @@ public class Ball : MonoBehaviour
 
         readyText.SetActive(false);
         brewText.SetActive(false);
+
+        //initialize speed;
+        initialSpeed = speed;
     }
 
     void Start()
@@ -85,11 +94,29 @@ public class Ball : MonoBehaviour
         {
             screwAngle = Mathf.Sin(20);
         }
+
+        //if the speed is above 100, make it 100.
+        SpeedCapper(60);
     }
 
     public void Reset()
     {
+        //Restore Speed
+        speed = initialSpeed;
+
+        //Stop moving the ball
         rb.velocity = Vector2.zero;
+        
+        /*
+
+        //clone yourself
+        Instantiate(gameObject);
+        //kill yourself
+        Destroy(gameObject);
+        */
+        
+        //MOVE THE BALL TO THE CENTER, RESET OWNERSHIP, RESET POWER, SERVE BALL
+        
         transform.position = startPosition;
 
         isLeftBall = false;
@@ -97,47 +124,77 @@ public class Ball : MonoBehaviour
 
         DefaultBall();
         StartCoroutine("ServeBall");
+        
     }
 
     private void Launch()
     {
+        //Choose a random direction
         float x = Random.Range(0, 2) == 0 ? -1 : 1;
         float y = Random.Range(0, 2) == 0 ? -1 : 1;
+        
+        //Push the ball in that direction
         rb.velocity = new Vector2(speed * x, speed * y);
+
+        //Clear the Ball's Trail
+        trail.Clear();
+
+        //Turn the trail back on
         trail.enabled = true;
+
+        //Serve Sound Effect (Currently Paddle sound)
+        sfx.playSFXPaddleHit();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("PlayerLeft"))
         {
-            sfx.playSFXPaddleHit();
+            //Swap Ball Ownership
             isLeftBall = true;
             isRightBall = false;
 
             //APPLY LEFT PLAYER'S BALL EFFECT
             LeftPoisonEffect();
 
-            //reset ball poison
+            //Check for a Parry
+            if (pp.leftParryElapsed < parryWindow)
+            {
+                Debug.Log("Nice Parry, Player Left!");
+                psfx.playSFXParry();
+                rb.velocity = rb.velocity * 1.25f;
+            } else sfx.playSFXPaddleHit(); //Paddle Hit Sound
+
+            //Reset Left Player's Equipped Poison
             pp.PlayerLeftDefault();
             
         } 
         if (other.gameObject.CompareTag("PlayerRight"))
         {
-            sfx.playSFXPaddleHit();
+            //Swap Ball Ownership
             isRightBall = true;
             isLeftBall = false;
 
             //APPLY RIGHT PLAYER'S BALL EFFECT
             RightPoisonEffect();
 
-            //reset ball poison
+            //Check for a Parry
+            if (pp.rightParryElapsed < parryWindow)
+            {
+                //Debug.Log("Nice Parry, Player Right!");
+                psfx.playSFXParry();
+                rb.velocity = rb.velocity * 1.25f;
+            }
+            else sfx.playSFXPaddleHit(); //Paddle Hit Sound
+
+            //Reset Right Player's Equipped Poison
             pp.PlayerRightDefault();
 
         }
 
         if (other.gameObject.CompareTag("Wall"))
         {
+            //Wall Hit Sound
             sfx.playSFXWallHit();
 
             //SHAKE CAMERA
@@ -164,7 +221,7 @@ public class Ball : MonoBehaviour
         if (pp.isRightFast == true)
         {
             FastBall();
-            rb.velocity = new Vector2(-20, screwAngle);
+            rb.velocity = new Vector2(-rb.velocity.x * 2, screwAngle);
         }
         if (pp.isRightScrew == true)
         {
@@ -189,7 +246,7 @@ public class Ball : MonoBehaviour
         if (pp.isLeftFast == true)
         {
             FastBall();
-            rb.velocity = new Vector2(20, screwAngle);
+            rb.velocity = new Vector2(rb.velocity.x * 2, screwAngle);
         }
         if (pp.isLeftScrew == true)
         {
@@ -199,7 +256,9 @@ public class Ball : MonoBehaviour
 
     void CurveBallDown()
     {
+        //Set Ball Color
         ballShellSprite.color = colorCurveDown;
+        //Set Trail Color
         trail.colorGradient = colorCurveDownGradient;
         //SHAKE CAMERA
         StartCoroutine(cameraShake.Shake(.1f, .1f));
@@ -208,12 +267,15 @@ public class Ball : MonoBehaviour
         //Play VO 
         vo.CurvePicker();
 
+        //Curve Ball Down Effect
         rb.gravityScale = .75f;
     }
 
     void CurveBallUp()
     {
+        //Set Ball Color
         ballShellSprite.color = colorCurveUp;
+        //Set Trail Color
         trail.colorGradient = colorCurveUpGradient;
         //SHAKE CAMERA
         StartCoroutine(cameraShake.Shake(.1f, .1f));
@@ -222,25 +284,31 @@ public class Ball : MonoBehaviour
         //Play VO 
         vo.CurvePicker();
 
+        //Curve Ball Up Effect
         rb.gravityScale = -.75f;
     }
 
     void DefaultBall()
     {
+        //Set Ball Color
         ballShellSprite.color = colorDefault;
+        //Set Trail Color
         trail.colorGradient = colorBasicGradient;
         //SHAKE CAMERA
         StartCoroutine(cameraShake.Shake(.1f, .1f));
         //HIT STOP
         FindObjectOfType<HitStop>().Stop(0.1f);
 
+        //Default Ball Effect
         rb.gravityScale = 0f;
     }
 
     void ScrewBall()
     {
-        trail.colorGradient = colorScrewGradient;
+        //Set Ball Color
         ballShellSprite.color = colorScrew;
+        //Set Trail Color
+        trail.colorGradient = colorScrewGradient;
         //SHAKE CAMERA
         StartCoroutine(cameraShake.Shake(.1f, .3f));
         //BIIIIIG HIT STOP
@@ -248,7 +316,8 @@ public class Ball : MonoBehaviour
         //Play VO 
         vo.ScrewPicker();
 
-
+        //Screw Ball Effect
+        // 50/50 chance that the ball will have positive or negative gravity with a range of strength
         if (Random.Range(0f, 1f) > .5f)
         {
             rb.gravityScale = Random.Range(4f, 6f);
@@ -260,9 +329,10 @@ public class Ball : MonoBehaviour
     }
     void FastBall()
     {
-        rb.gravityScale = 0f;
-        trail.colorGradient = colorFastGradient;
+        //Set Ball Color
         ballShellSprite.color = colorFast;
+        //Set Trail Color
+        trail.colorGradient = colorFastGradient;
         //SHAKE CAMERA
         StartCoroutine(cameraShake.Shake(.1f, .3f));
         //BIIIIIG HIT STOP
@@ -271,26 +341,51 @@ public class Ball : MonoBehaviour
         vo.FastPicker();
 
         //BALL EFFECT IS CALCULATED AT THE METHOD'S FIREPOINT. See Left/RightPoisonEffect
+        rb.gravityScale = 0f;
     }
 
+    void SpeedCapper(int speedLimit)
+    {
+        if (rb.velocity.x >= speedLimit)
+        {
+            rb.velocity = new Vector2(speedLimit, rb.velocity.y);
+        }
+
+        if (rb.velocity.y >= speedLimit)
+        {
+            rb.velocity = new Vector2(rb.velocity.x , speedLimit);
+        }
+    }
+
+    // First Serve Ball is where the pre-game countdown is handled
     public IEnumerator FirstServeBall()
     {
         yield return new WaitForSeconds(.2f);
+
+        //"My Pretties!" Witch Call
         vo.playVOpretties();
+        // show "READY?"
         readyText.SetActive(true);
+        // wait 2 seconds
         yield return new WaitForSeconds(2f);
+        // hide "READY?"
         readyText.SetActive(false);
+        // Show "BREW!"
         brewText.SetActive(true);
-        sfx.playSFXPaddleHit();
+        // Launch the Ball
         Launch();
+        // Wait a second
         yield return new WaitForSeconds(1f);
+        // hide "BREW!"
         brewText.SetActive(false);
     }
 
+    // Serve Ball is called after every score
     public IEnumerator ServeBall()
     {
+        //Wait a second
         yield return new WaitForSeconds(1f);
-        sfx.playSFXPaddleHit();
+        //Launch the Ball
         Launch();
     }
 }

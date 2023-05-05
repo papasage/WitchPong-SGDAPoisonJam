@@ -5,6 +5,9 @@ using TMPro;
 
 public class PoisonPicker : MonoBehaviour
 {
+    public float rightParryElapsed;
+    public float leftParryElapsed;
+
     [Header("Poison Debugger UI")]
     public GameObject PlayerLeftPowerText;
     public GameObject PlayerRightPowerText;    
@@ -67,6 +70,10 @@ public class PoisonPicker : MonoBehaviour
 
     private void Update()
     {
+        //Left and Right player is counting frames for parrying
+        leftParryElapsed += Time.deltaTime;
+        rightParryElapsed += Time.deltaTime;
+
         PlayerLeftPoisonSelect();
         PlayerRightPoisonSelect();
     }
@@ -94,6 +101,9 @@ public class PoisonPicker : MonoBehaviour
     //Cycle the Left Player's Poison
     public void PlayerLeftCycleLeft()
     {
+        //reset the left parry frame count
+        leftParryElapsed = 0;
+
         sfx.playSFXCycleDown();
 
         if (poisonLeft > poisonMin)
@@ -106,11 +116,13 @@ public class PoisonPicker : MonoBehaviour
     } 
     public void PlayerLeftCycleRight()
     {
+        //reset the left parry frame count
+        leftParryElapsed = 0;
+
         sfx.playSFXCycleUp();
 
         if (poisonLeft < poisonMax)
         {
-            
             poisonLeft++;
         }
         else poisonLeft = poisonMin;
@@ -121,6 +133,9 @@ public class PoisonPicker : MonoBehaviour
     //Cycle the Right Player's Poison
     public void PlayerRightCycleLeft()
     {
+        //reset the right parry frame count
+        rightParryElapsed = 0;
+
         sfx.playSFXCycleDown();
 
         if (poisonRight > poisonMin)
@@ -133,6 +148,9 @@ public class PoisonPicker : MonoBehaviour
     } 
     public void PlayerRightCycleRight()
     {
+        //reset the right parry frame count
+        rightParryElapsed = 0;
+
         sfx.playSFXCycleUp();
 
         if (poisonRight < poisonMax)

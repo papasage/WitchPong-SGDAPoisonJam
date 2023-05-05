@@ -283,6 +283,148 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104357902}
   m_CullTransparentMesh: 1
+--- !u!1 &104768592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104768593}
+  - component: {fileID: 104768595}
+  - component: {fileID: 104768594}
+  m_Layer: 0
+  m_Name: ParrySFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104768593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104768592}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1033.2201, y: -822.72845, z: 4.557476}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 418260726}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &104768594
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104768592}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &104768595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104768592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c2f7f31d41d9e4e8f8f951983ebb8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxParry: {fileID: 8300000, guid: cb54053e4dbf1c547ac6b4e604c5aa27, type: 3}
 --- !u!1 &128062041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354569ea4c1eff6488721fe7ad966367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightParryElapsed: 0
+  leftParryElapsed: 0
   PlayerLeftPowerText: {fileID: 2021674577}
   PlayerRightPowerText: {fileID: 1698083153}
   PlayerLeftHerbText: {fileID: 805881159}
@@ -2055,6 +2199,7 @@ MonoBehaviour:
   _ball: {fileID: 0}
   aiMoveBrain: 3
   aiPoisonBrain: 3
+  aiReactionRange: 0.25
 --- !u!50 &379609195
 Rigidbody2D:
   serializedVersion: 4
@@ -2161,9 +2306,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379609193}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 7, y: -0.88, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 7.000004, y: -0.8800019, z: 0}
+  m_LocalScale: {x: 0.80000025, y: 0.80000025, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 793199616}
@@ -2208,11 +2353,12 @@ MonoBehaviour:
   isPlayerLeft: 1
   isPlayerRight: 0
   speed: 10
-  cpuSpeed: 7
+  cpuSpeed: 0
   pp: {fileID: 0}
   _ball: {fileID: 0}
   aiMoveBrain: 0
   aiPoisonBrain: 0
+  aiReactionRange: 0
 --- !u!50 &386261274
 Rigidbody2D:
   serializedVersion: 4
@@ -2555,6 +2701,7 @@ Transform:
   - {fileID: 866318829}
   - {fileID: 464262604}
   - {fileID: 312787266}
+  - {fileID: 104768593}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4758,6 +4905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec70102e1704b324b9366e8c635eedf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parryWindow: 0.1
   speed: 5.5
   startPosition: {x: 0, y: 0, z: 0}
   ballSprite: {fileID: 0}
@@ -12901,10 +13049,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'press space to '
+  m_text: 'press start to '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 379bd074a75ee924a9ee7ff5a7f7d71d, type: 2}
-  m_sharedMaterial: {fileID: 3934158255002319464, guid: 161dfc493af561240bd5c5732060f52d, type: 2}
+  m_sharedMaterial: {fileID: 3934158255002319464, guid: 379bd074a75ee924a9ee7ff5a7f7d71d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12990,7 +13138,7 @@ GameObject:
   - component: {fileID: 1737810043}
   - component: {fileID: 1737810042}
   m_Layer: 0
-  m_Name: Particles
+  m_Name: (unused) boiling particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18343,7 +18491,7 @@ MonoBehaviour:
   m_text: return to menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 379bd074a75ee924a9ee7ff5a7f7d71d, type: 2}
-  m_sharedMaterial: {fileID: 3934158255002319464, guid: 161dfc493af561240bd5c5732060f52d, type: 2}
+  m_sharedMaterial: {fileID: 3934158255002319464, guid: 379bd074a75ee924a9ee7ff5a7f7d71d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

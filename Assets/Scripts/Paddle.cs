@@ -6,6 +6,7 @@ public class Paddle : MonoBehaviour
 {
     public bool isPlayerLeft;
     public bool isPlayerRight;
+    
     public float speed;
     public float cpuSpeed;
 
@@ -16,12 +17,13 @@ public class Paddle : MonoBehaviour
 
     public PoisonPicker pp;
     public Ball _ball;
-    float ballY;
+    float ballLastSeenY;
     
     //this is a variable that determines how often the ai checks the ball's y position
     //consider it a % chance out of 100 per frame
-    public int aiMoveBrain;
-    public int aiPoisonBrain;
+    public int aiMoveBrain; // x/100 chance to update ballLastSeenY
+    public int aiPoisonBrain; // x/1000 chance to 50/50 cycle to the left or right
+    public float aiReactionRange; // if the ball is greater than x or less than -x, then react (LOWER NUMBER MEANS LESS REACTION TIME)
 
     private void Start()
     {
@@ -67,18 +69,21 @@ public class Paddle : MonoBehaviour
         if (!isPlayerRight && !isPlayerLeft)
         {
 
-            if (ballY > gameObject.transform.position.y)
+            if (ballLastSeenY > gameObject.transform.position.y + aiReactionRange)
             {
+                // if the ball was last seen above the paddle (plus reaction range) move up
                 movement = 1;
             }
 
-            if (ballY < gameObject.transform.position.y)
+            if (ballLastSeenY < gameObject.transform.position.y - aiReactionRange)
             {
+                // if the ball was last seen below the paddle (minus reaction range) move down
                 movement = -1;
             }
 
-            if (ballY == gameObject.transform.position.y)
+            if (ballLastSeenY > gameObject.transform.position.y - aiReactionRange && ballLastSeenY < gameObject.transform.position.y + aiReactionRange)
             {
+                // if the ball was last seen within the reaction range, don't move. 
                 movement = 0;
             }
 
@@ -94,6 +99,7 @@ public class Paddle : MonoBehaviour
 
     void PickYourPoison()
     {
+
         // left and right will cycle through different chaotic ball styles that will apply to the ball when you hit it. 
         // think like how a baseball pitcher decides what kind of pitch to throw to the batter
         if (isPlayerLeft)
@@ -102,6 +108,7 @@ public class Paddle : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A) || (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") < 0))
             {
                 Debug.Log("PlayerLeft: Cycled Left");
+
                 pp.PlayerLeftCycleLeft();
             }
             
@@ -109,6 +116,7 @@ public class Paddle : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.D) || (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") > 0))
             {
                 Debug.Log("PlayerLeft: Cycled Right");
+
                 pp.PlayerLeftCycleRight();
             }
 
@@ -120,6 +128,8 @@ public class Paddle : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow) || (Input.GetButtonDown("Horizontal2") && Input.GetAxisRaw("Horizontal2") < 0))
             {
                 Debug.Log("PlayerRight: Cycled Left");
+
+
                 pp.PlayerRightCycleLeft();
             }
 
@@ -127,6 +137,7 @@ public class Paddle : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow) || (Input.GetButtonDown("Horizontal2") && Input.GetAxisRaw("Horizontal2") > 0))
             {
                 Debug.Log("PlayerRight: Cycled Right");
+
                 pp.PlayerRightCycleRight();
             }
         }
@@ -137,9 +148,9 @@ public class Paddle : MonoBehaviour
     {
 
         int _random1 = Random.Range(1, 100);
-        if (_random1 <= aiMoveBrain)
+        if (_random1 <= aiMoveBrain && _ball != null)
         {
-            ballY = _ball.transform.position.y;
+            ballLastSeenY = _ball.transform.position.y;
         }
 
     }
