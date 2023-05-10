@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 42298
+  controlID: 43125
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 42299
+  controlID: 43126
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 42300
+  controlID: 43127
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -226,7 +226,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 02dffaffd4dffaffa4e0faff84e1faff64e2faff44e3faff0c04fbffa20afbff8e0bfbff1416fbffc217fbff3018fbffc819fbffee19fbfffe1dfbff4a1efbff6620fbffea20fbff6e21fbff0822fbff7022fbff8a27fbfffc31fbff9e60fbff4474fbff0e75fbff6676fbff8477fbff6079fbff587afbff26fbffff28fbffffc6610000d2610000a062000064630000de630000229300002e9300008a9d0000969d00001ca4000028a40000a45c0100da5c0100286201006e6301009a630100506401001c660100bc660100
+      m_ExpandedIDs: 9cd4faffcae10100d4e10100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -545,17 +545,17 @@ MonoBehaviour:
       layout: 4
   m_WindowGUID: df835d690605fa8449a39306e8ebfa4d
   m_Gizmos: 1
-  m_OverrideSceneCullingMask: 6917529027641081856
-  m_SceneIsLit: 1
+  m_OverrideSceneCullingMask: 0
+  m_SceneIsLit: 0
   m_SceneLighting: 1
   m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 925.387, y: 592.95026, z: 0.29098505}
+    m_Target: {x: 634.4533, y: 436.79852, z: -4.9795494}
     speed: 2
-    m_Value: {x: 925.387, y: 592.95026, z: 0.29098505}
+    m_Value: {x: 634.4533, y: 436.79852, z: -4.9795494}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_SceneViewState:
     m_AlwaysRefresh: 0
     showFog: 1
-    showSkybox: 1
+    showSkybox: 0
     showFlares: 1
     showImageEffects: 1
     showParticleSystems: 1
@@ -606,9 +606,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1072.3555
+    m_Target: 637.6903
     speed: 2
-    m_Value: 1072.3555
+    m_Value: 637.6903
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -797,8 +797,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: c2660000
-    m_LastClickedInstanceID: 26306
+    m_SelectedInstanceIDs: d4e10100
+    m_LastClickedInstanceID: 123348
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000d6690000166e0000
     m_RenameOverlay:
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 42294
+  controlID: 43084
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -914,8 +914,8 @@ MonoBehaviour:
     m_CachedPref: 326
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 26306
-  m_LastVerticalScrollValue: 0
+  m_LastInspectedObjectInstanceID: 123348
+  m_LastVerticalScrollValue: 225
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -1016,21 +1016,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/[Prefabs]
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/[Prefabs]
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Xunity\WitchPong-SGDAPoisonJam
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 82660000
-    m_LastClickedID: 26242
+    m_SelectedIDs: 7a660000
+    m_LastClickedID: 26234
     m_ExpandedIDs: 000000004666000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1084,8 +1084,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: c2660000
-    m_LastClickedInstanceID: 26306
+    m_SelectedInstanceIDs: d4e10100
+    m_LastClickedInstanceID: 123348
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 72720000166e0000000000009e670000
     m_RenameOverlay:
@@ -1111,7 +1111,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 81.5}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 200
