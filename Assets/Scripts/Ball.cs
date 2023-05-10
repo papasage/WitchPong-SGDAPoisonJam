@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour
     Rigidbody2D rb;
     public Vector3 startPosition;
     SFXManager sfx;
+    MusicManager music;
     ParrySFX psfx;
     public SpriteRenderer ballSprite;
     public SpriteRenderer ballShellSprite;
@@ -45,11 +46,16 @@ public class Ball : MonoBehaviour
     //public Gradient colorLeftGradient;
     public Gradient colorBasicGradient;
 
+    private ParryParticleHandler LeftParryParticle;
+    private ParryParticleHandler RightParryParticle;
+
+
     private void Awake()
     {
         sfx = FindObjectOfType<SFXManager>();
         psfx = FindObjectOfType<ParrySFX>();
         vo = FindObjectOfType<AnnouncerManager>();
+        music = FindObjectOfType<MusicManager>();
         ballSprite = GetComponent<SpriteRenderer>();
         trail = GetComponent<TrailRenderer>();
         ballShellSprite.color = colorDefault;
@@ -58,6 +64,12 @@ public class Ball : MonoBehaviour
 
         readyText.SetActive(false);
         brewText.SetActive(false);
+
+
+        // this bit is so that the ball can see the player's parry particle emmiters
+        LeftParryParticle = GameObject.Find("LeftParryParticle").GetComponent<ParryParticleHandler>();
+        RightParryParticle = GameObject.Find("RightParryParticle").GetComponent<ParryParticleHandler>(); ;
+
 
         //initialize speed;
         initialSpeed = speed;
@@ -160,8 +172,15 @@ public class Ball : MonoBehaviour
             //Check for a Parry
             if (pp.leftParryElapsed < parryWindow)
             {
-                Debug.Log("Nice Parry, Player Left!");
+                //SHAKE CAMERA
+                //StartCoroutine(cameraShake.Shake(.1f, .3f));
+                //BIIIIIG HIT STOP
+                FindObjectOfType<HitStop>().Stop(.6f);
+                //Play Parry Sound
                 psfx.playSFXParry();
+                //Parry Particles
+                LeftParryParticle.fire();
+                //Increase ball velocity
                 rb.velocity = rb.velocity * 1.25f;
             } else sfx.playSFXPaddleHit(); //Paddle Hit Sound
 
@@ -181,9 +200,17 @@ public class Ball : MonoBehaviour
             //Check for a Parry
             if (pp.rightParryElapsed < parryWindow)
             {
-                //Debug.Log("Nice Parry, Player Right!");
+                //SHAKE CAMERA
+                //StartCoroutine(cameraShake.Shake(.1f, .3f));
+                //BIIIIIG HIT STOP
+                FindObjectOfType<HitStop>().Stop(.6f);
+                //Play Parry Sound
                 psfx.playSFXParry();
+                //Parry Particles
+                RightParryParticle.fire();
+                //Increase ball velocity
                 rb.velocity = rb.velocity * 1.25f;
+
             }
             else sfx.playSFXPaddleHit(); //Paddle Hit Sound
 
@@ -360,7 +387,7 @@ public class Ball : MonoBehaviour
     // First Serve Ball is where the pre-game countdown is handled
     public IEnumerator FirstServeBall()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(1f);
 
         //"My Pretties!" Witch Call
         vo.playVOpretties();
@@ -374,6 +401,8 @@ public class Ball : MonoBehaviour
         brewText.SetActive(true);
         // Launch the Ball
         Launch();
+        //Start the Music
+        music.RandomTrackPicker();
         // Wait a second
         yield return new WaitForSeconds(1f);
         // hide "BREW!"

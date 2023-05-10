@@ -35,8 +35,22 @@ public class GameManager : MonoBehaviour
     bool gameOver = false;
     bool restartReady = false;
 
+    [Header("Transition")]
+    public Animator transition;
+    GameObject musicManager;
+    public AudioSource music;
+    public SFXManager sfx;
+
     private void Awake()
     {
+        transition = (Animator)FindObjectOfType(typeof(Animator));
+
+        musicManager = GameObject.Find("MusicManager");
+        music = musicManager.GetComponent<AudioSource>();
+        
+        sfx = (SFXManager)FindObjectOfType(typeof(SFXManager));
+
+
         vo = FindObjectOfType<AnnouncerManager>();
         leftWinnerText.SetActive(false);
         rightWinnerText.SetActive(false);
@@ -91,13 +105,14 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.Joystick2Button6))
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick2Button7))
         {
-            SceneManager.LoadScene(0);
+            StartCoroutine(sceneTransition(1));
+            
         }
     }
 
@@ -136,5 +151,23 @@ public class GameManager : MonoBehaviour
     {
         vo.playVOpretties();
         yield return new WaitForSeconds(2f);
+    }
+
+    public IEnumerator sceneTransition(int indexAdd)
+    {
+        //fade to black
+        transition.SetTrigger("Start");
+
+        //fade out music
+        //fade out music
+        music.Stop();
+        sfx.playUIgameStart();
+
+
+        //Wait a second
+        yield return new WaitForSeconds(2f);
+
+        //Load the menu
+        SceneManager.LoadScene(0);
     }
 }

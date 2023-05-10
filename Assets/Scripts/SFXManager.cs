@@ -13,6 +13,9 @@ public class SFXManager : MonoBehaviour
     public AudioClip sfxCycleDown;
     public AudioClip sfxCycleDefault;
 
+    [Header("UI Sounds")]
+    public AudioClip gameStart;
+
 
     void Start()
     {
@@ -57,6 +60,14 @@ public class SFXManager : MonoBehaviour
     {
         source.clip = sfxCycleDefault;
         source.pitch = 1;
+        source.Play();
+    }
+
+
+    public void playUIgameStart()
+    {
+        source.clip = gameStart;
+        source.pitch = 1f;
         source.Play();
     }
 

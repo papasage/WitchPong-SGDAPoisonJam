@@ -13,11 +13,11 @@ EditorBuildSettings:
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/PvCPU_Easy.unity
-    guid: 84113b0fc0dd17648a4b47adf49bd057
+    guid: 1a91535963162ef4ab2299c27a25a02e
   - enabled: 1
     path: Assets/Scenes/PvCPU_Medium.unity
-    guid: 821360bc30e6aa74cb4a75893712a6f2
+    guid: 87b485570dd8d344c9ed6a6b2eebdf0c
   - enabled: 1
     path: Assets/Scenes/PvCPU_Hard.unity
-    guid: aa7929daa69527d48b29c57a15f12ef2
+    guid: 1952aab4f732bcf4ba463c6ecbc1a1d9
   m_configObjects: {}

@@ -27,6 +27,9 @@ public class AnnouncerManager : MonoBehaviour
     public AudioClip myPretties;
     public AudioClip winner;
 
+
+
+
     void Start()
     {
         source = GetComponent<AudioSource>();
@@ -111,6 +114,8 @@ public class AnnouncerManager : MonoBehaviour
         source.pitch = 1f;
         source.Play();
     }
+
+
 
     public void LaughPicker()
     {

@@ -5,26 +5,61 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] AudioSource music;
+    [SerializeField] SFXManager sfx;
+
+    public Animator transition;
+
+
+
+    public void Awake()
+    {
+    }
+
     public void start2PMode()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine(sceneTransition(1));
     }
     public void start1PModeEasy()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        StartCoroutine(sceneTransition(2));
     }
     public void start1PModeMedium()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        StartCoroutine(sceneTransition(3));
     }
     public void start1PModeHard()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        StartCoroutine(sceneTransition(4));
     }
+
+
+    public void fadeMusic()
+    {
+
+    }
+
 
     public void QuitGame()
     {
         Application.Quit();
         Debug.Log("QUIT GAME");
     }
+
+    public IEnumerator sceneTransition(int indexAdd)
+    {
+        //fade to black
+        transition.SetTrigger("Start");
+
+        //fade out music
+        music.Stop();
+        sfx.playUIgameStart();
+
+        //Wait a second
+        yield return new WaitForSeconds(2f);
+
+        //Load the next scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + indexAdd);
+    }
+
 }
